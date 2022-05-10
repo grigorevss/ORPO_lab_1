@@ -48,14 +48,14 @@ namespace ORPO_lab_1
             }
             if (isNeedCreate)
             {
-                string[] createTableSQL = { "CREATE TABLE tusurMainEntity(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, value INTEGER)" };
-                string[] insertTableSQL = { "INSERT INTO tusurMainEntity(name,value) values('aText',1)",
-                                            "INSERT INTO tusurMainEntity(name,value) values('bText',3)",
-                                            "INSERT INTO tusurMainEntity(name,value) values('cText',4)",
-                                            "INSERT INTO tusurMainEntity(name,value) values('fText',5)",
-                                            "INSERT INTO tusurMainEntity(name,value) values('eText',6)",
-                                            "INSERT INTO tusurMainEntity(name,value) values('rText',7)",
-                                            "INSERT INTO tusurMainEntity(name,value) values('tText',8)"};
+                string[] createTableSQL = { "CREATE TABLE AnotherTusurMainEntity(id INTEGER PRIMARY KEY AUTOINCREMENT, value_1 INTEGER, value_2 INTEGER, value_3 REAL, value_4 REAL)" };
+                string[] insertTableSQL = { "INSERT INTO AnotherTusurMainEntity(value_1,value_2,value_3,value_4) values(1,1,3.14,2.7)",
+                                            "INSERT INTO AnotherTusurMainEntity(value_1,value_2,value_3,value_4) values(2,2,5.12,7.77)",
+                                            "INSERT INTO AnotherTusurMainEntity(value_1,value_2,value_3,value_4) values(5,2,66.6,98.1)",
+                                            "INSERT INTO AnotherTusurMainEntity(value_1,value_2,value_3,value_4) values(55,11,234.123,2.123)",
+                                            "INSERT INTO AnotherTusurMainEntity(value_1,value_2,value_3,value_4) values(987,54,3333.1111,123.456)",
+                                            "INSERT INTO AnotherTusurMainEntity(value_1,value_2,value_3,value_4) values(3,4,8.54,4.2)",
+                                            "INSERT INTO AnotherTusurMainEntity(value_1,value_2,value_3,value_4) values(32,66,8.111123,767.909)"};
                 if (conn.State == System.Data.ConnectionState.Open)
                 {
                     for (int i = 0; i < createTableSQL.Length; i++)
@@ -87,27 +87,39 @@ namespace ORPO_lab_1
             }
             if (adapterSQLite == null)
             {
-                adapterSQLite = new SQLiteDataAdapter("SELECT id,name,value FROM tusurMainEntity ", conn);
+                adapterSQLite = new SQLiteDataAdapter("SELECT id,value_1,value_2,value_3,value_4 FROM AnotherTusurMainEntity ", conn);
                 dataTableSQLite = new DataTable();
                 SQLiteCommand command = new SQLiteCommand();
                 command.Connection = conn;
-                command.CommandText = "INSERT INTO tusurMainEntity(name,value) values(@name,@value)";
+                command.CommandText = "INSERT INTO AnotherTusurMainEntity(value_1,value_2,value_3,value_4) values(@value_1,@value_2,@value_3,@value_4)";
                 SQLiteParameter par = new SQLiteParameter();
-                par.ParameterName = "@name";
-                par.SourceColumn = "name";
-                par.SourceVersion = System.Data.DataRowVersion.Current;
-                par.DbType = System.Data.DbType.AnsiString;
-                command.Parameters.Add(par);
-                par = new SQLiteParameter();
-                par.ParameterName = "@value";
-                par.SourceColumn = "value";
+                par.ParameterName = "@value_1";
+                par.SourceColumn = "value_1";
                 par.SourceVersion = System.Data.DataRowVersion.Current;
                 par.DbType = System.Data.DbType.Int64;
+                command.Parameters.Add(par);
+                par = new SQLiteParameter();
+                par.ParameterName = "@value_2";
+                par.SourceColumn = "value_2";
+                par.SourceVersion = System.Data.DataRowVersion.Current;
+                par.DbType = System.Data.DbType.Int64;
+                command.Parameters.Add(par);
+                par = new SQLiteParameter();
+                par.ParameterName = "@value_3";
+                par.SourceColumn = "value_3";
+                par.SourceVersion = System.Data.DataRowVersion.Current;
+                par.DbType = System.Data.DbType.Double;
+                command.Parameters.Add(par);
+                par = new SQLiteParameter();
+                par.ParameterName = "@value_4";
+                par.SourceColumn = "value_4";
+                par.SourceVersion = System.Data.DataRowVersion.Current;
+                par.DbType = System.Data.DbType.Double;
                 command.Parameters.Add(par);
                 adapterSQLite.InsertCommand = command;
                 command = new SQLiteCommand();
                 command.Connection = conn;
-                command.CommandText = "UPDATE tusurMainEntity SET name=@name,value=@value WHERE id=@id";
+                command.CommandText = "UPDATE AnotherTusurMainEntity SET value_1=@value_1,value_2=@value_2,value_3=@value_3,value_4=@value_4 WHERE id=@id";
                 par = new SQLiteParameter();
                 par.ParameterName = "@id";
                 par.SourceColumn = "id";
@@ -115,16 +127,28 @@ namespace ORPO_lab_1
                 par.DbType = System.Data.DbType.Int64;
                 command.Parameters.Add(par);
                 par = new SQLiteParameter();
-                par.ParameterName = "@name";
-                par.SourceColumn = "name";
-                par.SourceVersion = System.Data.DataRowVersion.Current;
-                par.DbType = System.Data.DbType.AnsiString;
-                command.Parameters.Add(par);
-                par = new SQLiteParameter();
-                par.ParameterName = "@value";
-                par.SourceColumn = "value";
+                par.ParameterName = "@value_1";
+                par.SourceColumn = "value_1";
                 par.SourceVersion = System.Data.DataRowVersion.Current;
                 par.DbType = System.Data.DbType.Int64;
+                command.Parameters.Add(par);
+                par = new SQLiteParameter();
+                par.ParameterName = "@value_2";
+                par.SourceColumn = "value_2";
+                par.SourceVersion = System.Data.DataRowVersion.Current;
+                par.DbType = System.Data.DbType.Int64;
+                command.Parameters.Add(par);
+                par = new SQLiteParameter();
+                par.ParameterName = "@value_3";
+                par.SourceColumn = "value_3";
+                par.SourceVersion = System.Data.DataRowVersion.Current;
+                par.DbType = System.Data.DbType.Double;
+                command.Parameters.Add(par);
+                par = new SQLiteParameter();
+                par.ParameterName = "@value_4";
+                par.SourceColumn = "value_4";
+                par.SourceVersion = System.Data.DataRowVersion.Current;
+                par.DbType = System.Data.DbType.Double;
                 command.Parameters.Add(par);
                 adapterSQLite.UpdateCommand = command;
                 bsSQLite.DataSource = dataTableSQLite;
@@ -167,14 +191,14 @@ namespace ORPO_lab_1
             }
             if (isNeedCreate)
             {
-                string[] createTableSQL = { "CREATE TABLE tusurMainEntity(id SERIAL PRIMARY KEY, name TEXT NOT NULL, value INTEGER)" };
-                string[] insertTableSQL = { "INSERT INTO tusurMainEntity(name,value) values('aText',1)",
-                                            "INSERT INTO tusurMainEntity(name,value) values('bText',3)",
-                                            "INSERT INTO tusurMainEntity(name,value) values('cText',4)",
-                                            "INSERT INTO tusurMainEntity(name,value) values('fText',5)",
-                                            "INSERT INTO tusurMainEntity(name,value) values('eText',6)",
-                                            "INSERT INTO tusurMainEntity(name,value) values('rText',7)",
-                                            "INSERT INTO tusurMainEntity(name,value) values('tText',8)"};
+                string[] createTableSQL = { "CREATE TABLE AnotherTusurMainEntity(id SERIAL PRIMARY KEY, value_1 INTEGER, value_2 INTEGER, value_3 double precision, value_4 double precision)" };
+                string[] insertTableSQL = { "INSERT INTO AnotherTusurMainEntity(value_1,value_2,value_3,value_4) values(1,1,3.14,2.7)",
+                                            "INSERT INTO AnotherTusurMainEntity(value_1,value_2,value_3,value_4) values(2,2,5.12,7.77)",
+                                            "INSERT INTO AnotherTusurMainEntity(value_1,value_2,value_3,value_4) values(5,2,66.6,98.1)",
+                                            "INSERT INTO AnotherTusurMainEntity(value_1,value_2,value_3,value_4) values(55,11,234.123,2.123)",
+                                            "INSERT INTO AnotherTusurMainEntity(value_1,value_2,value_3,value_4) values(987,54,3333.1111,123.456)",
+                                            "INSERT INTO AnotherTusurMainEntity(value_1,value_2,value_3,value_4) values(3,4,8.54,4.2)",
+                                            "INSERT INTO AnotherTusurMainEntity(value_1,value_2,value_3,value_4) values(32,66,8.111123,767.909)"};
                 if (conn.State == System.Data.ConnectionState.Open)
                 {
                     for (int i = 0; i < createTableSQL.Length; i++)
@@ -206,27 +230,39 @@ namespace ORPO_lab_1
             }
             if (adapterNpgsql == null)
             {
-                adapterNpgsql = new NpgsqlDataAdapter("SELECT id,name,value FROM tusurMainEntity ", conn);
+                adapterNpgsql = new NpgsqlDataAdapter("SELECT id,value_1,value_2,value_3,value_4 FROM AnotherTusurMainEntity ", conn);
                 dataTableNpgsql = new DataTable();
                 NpgsqlCommand command = new NpgsqlCommand();
                 command.Connection = conn;
-                command.CommandText = "INSERT INTO tusurMainEntity(name,value) values(@name,@value)";
+                command.CommandText = "INSERT INTO AnotherTusurMainEntity(value_1,value_2,value_3,value_4) values(@value_1,@value_2,@value_3,@value_4)";
                 NpgsqlParameter par = new NpgsqlParameter();
-                par.ParameterName = "@name";
-                par.SourceColumn = "name";
-                par.SourceVersion = System.Data.DataRowVersion.Current;
-                par.DbType = System.Data.DbType.AnsiString;
-                command.Parameters.Add(par);
-                par = new NpgsqlParameter();
-                par.ParameterName = "@value";
-                par.SourceColumn = "value";
+                par.ParameterName = "@value_1";
+                par.SourceColumn = "value_1";
                 par.SourceVersion = System.Data.DataRowVersion.Current;
                 par.DbType = System.Data.DbType.Int64;
+                command.Parameters.Add(par);
+                par = new NpgsqlParameter();
+                par.ParameterName = "@value_2";
+                par.SourceColumn = "value_2";
+                par.SourceVersion = System.Data.DataRowVersion.Current;
+                par.DbType = System.Data.DbType.Int64;
+                command.Parameters.Add(par);
+                par = new NpgsqlParameter();
+                par.ParameterName = "@value_3";
+                par.SourceColumn = "value_3";
+                par.SourceVersion = System.Data.DataRowVersion.Current;
+                par.DbType = System.Data.DbType.Double;
+                command.Parameters.Add(par);
+                par = new NpgsqlParameter();
+                par.ParameterName = "@value_4";
+                par.SourceColumn = "value_4";
+                par.SourceVersion = System.Data.DataRowVersion.Current;
+                par.DbType = System.Data.DbType.Double;
                 command.Parameters.Add(par);
                 adapterNpgsql.InsertCommand = command;
                 command = new NpgsqlCommand();
                 command.Connection = conn;
-                command.CommandText = "UPDATE tusurMainEntity SET name=@name,value=@value WHERE id=@id";
+                command.CommandText = "UPDATE AnotherTusurMainEntity SET value_1=@value_1,value_2=@value_2,value_3=@value_3,value_4=@value_4 WHERE id=@id";
                 par = new NpgsqlParameter();
                 par.ParameterName = "@id";
                 par.SourceColumn = "id";
@@ -234,16 +270,28 @@ namespace ORPO_lab_1
                 par.DbType = System.Data.DbType.Int64;
                 command.Parameters.Add(par);
                 par = new NpgsqlParameter();
-                par.ParameterName = "@name";
-                par.SourceColumn = "name";
-                par.SourceVersion = System.Data.DataRowVersion.Current;
-                par.DbType = System.Data.DbType.AnsiString;
-                command.Parameters.Add(par);
-                par = new NpgsqlParameter();
-                par.ParameterName = "@value";
-                par.SourceColumn = "value";
+                par.ParameterName = "@value_1";
+                par.SourceColumn = "value_1";
                 par.SourceVersion = System.Data.DataRowVersion.Current;
                 par.DbType = System.Data.DbType.Int64;
+                command.Parameters.Add(par);
+                par = new NpgsqlParameter();
+                par.ParameterName = "@value_2";
+                par.SourceColumn = "value_2";
+                par.SourceVersion = System.Data.DataRowVersion.Current;
+                par.DbType = System.Data.DbType.Int64;
+                command.Parameters.Add(par);
+                par = new NpgsqlParameter();
+                par.ParameterName = "@value_3";
+                par.SourceColumn = "value_3";
+                par.SourceVersion = System.Data.DataRowVersion.Current;
+                par.DbType = System.Data.DbType.Double;
+                command.Parameters.Add(par);
+                par = new NpgsqlParameter();
+                par.ParameterName = "@value_4";
+                par.SourceColumn = "value_4";
+                par.SourceVersion = System.Data.DataRowVersion.Current;
+                par.DbType = System.Data.DbType.Double;
                 command.Parameters.Add(par);
                 adapterNpgsql.UpdateCommand = command;
                 bsNpgsql.DataSource = dataTableNpgsql;
