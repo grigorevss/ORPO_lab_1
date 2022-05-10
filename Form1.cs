@@ -21,5 +21,25 @@ namespace ORPO_lab_1
         {
 
         }
+
+        private void button_ll_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_lr_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_rl_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_rr_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
